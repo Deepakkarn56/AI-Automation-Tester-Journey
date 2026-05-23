@@ -1,5 +1,5 @@
 # Day 1 - Tools Overview, Generative AI & LLMs
-📅 Date: 16 May 2026
+📅 Date: 23 May 2026
 📚 Course: AI Automation Tester Blueprint
 
 ---
@@ -127,3 +127,120 @@ Each token is converted into a number that
 the machine can process.
 
 **Example:**
+### Concept 1: Tokenization (continued)
+
+**Example:**
+Input Text: "Write test case for login"
+
+How LLM breaks it into tokens:
+| Token | Number |
+|-------|--------|
+| Write | 8890   |
+| test  | 1332   |
+| case  | 1539   |
+| for   | 329    |
+| login | 11836  |
+
+Simple Rule:
+- 1 word ≈ 1-2 tokens
+- "login" = 1 token
+- "authentication" = 3 tokens (au + then + tication)
+
+**Why Tokenization Matters for QA?**
+- Every AI tool has a TOKEN LIMIT per request
+- ChatGPT-4o: ~128,000 tokens
+- Claude Sonnet: ~200,000 tokens
+- If your requirement doc is too long → it gets CUT OFF
+- Solution: Break large docs into smaller chunks
+
+---
+
+### Concept 2: Context Window
+
+**What is it?**
+Context Window = The MEMORY of an LLM
+It is the maximum amount of text an LLM can 
+"see" and "remember" in a single conversation.
+
+**Simple Analogy:**
+Think of it like a whiteboard.
+- The LLM can only read what is written on 
+  the whiteboard RIGHT NOW.
+- Anything erased (outside the window) = FORGOTTEN.
+
+**Example:**
+You share a 500-page requirement document.
+- Claude (200k tokens) → Can read most of it ✅
+- GPT-3.5 (4k tokens) → Can only read ~3 pages ❌
+
+**Context Window Comparison:**
+| Model           | Context Window | Pages (approx) |
+|-----------------|----------------|----------------|
+| GPT-4o          | 128,000 tokens | ~96 pages      |
+| Claude Sonnet   | 200,000 tokens | ~150 pages     |
+| Gemini 1.5 Pro  | 1,000,000 tokens | ~750 pages   |
+| DeepSeek        | 64,000 tokens  | ~48 pages      |
+
+**QA Use Case:**
+- Reviewing a large BRD (Business Requirement Doc)
+  → Use Claude or Gemini for best results
+- Short prompt for one test case
+  → Any model works fine
+
+---
+
+### Concept 3: Reasoning
+
+**What is it?**
+Reasoning = LLM ki sochne ki taakat
+The ability of the model to think step-by-step 
+and give logical, accurate answers.
+
+**Two Types of Reasoning:**
+
+**1. Basic Reasoning (All LLMs)**
+- Simple Q&A
+- Example: "What is boundary value analysis?"
+- LLM directly gives the answer
+
+**2. Chain-of-Thought Reasoning (Advanced)**
+- LLM thinks step by step before answering
+- Triggered by prompts like:
+  "Think step by step..."
+  "Let's reason through this..."
+
+**Example — Without Reasoning Prompt:**
+Prompt: "Is this test case correct?"
+Output: "Yes, it looks fine." ← vague answer
+
+**Example — With Reasoning Prompt:**
+Prompt: "Review this test case step by step 
+and identify any missing scenarios."
+Output:
+Step 1: Checking preconditions → Missing ❌
+Step 2: Checking input data → Looks good ✅  
+Step 3: Checking expected result → Vague ❌
+Step 4: Recommendation → Add negative test cases
+
+**QA Tip — Best Prompts for Reasoning:**
+| Instead of this...         | Say this...                          |
+|----------------------------|--------------------------------------|
+| "Write test cases"         | "Think step by step and write..."   |
+| "Is this bug valid?"       | "Analyze this bug report carefully" |
+| "Review my test plan"      | "Review section by section and..."  |
+
+---
+
+## 4. Day 1 Summary
+
+| Topic             | Key Takeaway                                  |
+|-------------------|-----------------------------------------------|
+| Tools             | ChatGPT, Claude, Gemini, n8n, Langflow, IDEs  |
+| Generative AI     | Creates NEW content (text, code, images)      |
+| LLM               | Large Language Model = AI brain               |
+| Tokenization      | Text → Tokens → Numbers → AI processes it    |
+| Context Window    | LLM ki memory — Claude has the largest        |
+| Reasoning         | Step-by-step thinking = better QA output      |
+
+---
+
